@@ -29,6 +29,10 @@
   margin-left: 1rem;
 }
 
+.modalcolor {
+  background-color: rgb(170, 197, 170);
+}
+
 .actions button:hover,
 .actions button:active {
   background-color: #5a1a01;
