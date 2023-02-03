@@ -1,12 +1,31 @@
 import React from "react";
 import Input from "../../UI/input";
 import classes from "./MealItemform.module.css";
+import { useRef, useState } from "react";
 
-function MealItemform() {
+function MealItemform({ onAdditem }) {
+  const [validform, SetFormValidity] = useState(true);
+  const inputRef = useRef();
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    const enteredAmount = inputRef.current.value;
+    const enteredAmouuntToNumber = +enteredAmount;
+    if (
+      enteredAmouuntToNumber.trim() === 0 ||
+      enteredAmouuntToNumber < 1 ||
+      enteredAmouuntToNumber > 5
+    ) {
+      SetFormValidity(false);
+      return;
+    }
+    onAdditem(enteredAmouuntToNumber);
+  };
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={onSubmitHandler}>
       <Input
         label="Amount"
+        ref={inputRef}
         input={{
           id: "amount",
           type: "number",
@@ -16,7 +35,8 @@ function MealItemform() {
           defaultValue: "1",
         }}
       />
-      <button>+Add</button>
+      <button type="submit">+Add</button>
+      {!validform && <h1>invalid input</h1>}
     </form>
   );
 }

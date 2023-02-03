@@ -2,7 +2,7 @@ import classes from "./cart.module.css";
 import React from "react";
 import Modal from "../UI/Modal";
 
-function Cart() {
+function Cart({ onHide }) {
   const cartItems = [
     {
       id: "c1",
@@ -12,7 +12,7 @@ function Cart() {
     },
   ];
   return (
-    <Modal className={classes.modalcolor}>
+    <Modal className={classes.modalcolor} onClick={onHide}>
       <ul className={classes["cart-items"]}>
         {cartItems.map((item) => (
           <li key={item.id}>{item.name}</li>
@@ -23,7 +23,9 @@ function Cart() {
         <span>38.93</span>
       </div>
       <div className={classes.actions}>
-        <button className={classes["button--alt"]}>close</button>
+        <button className={classes["button--alt"]} onClick={onHide}>
+          close
+        </button>
         <button className={classes.button}>order</button>
       </div>
     </Modal>
