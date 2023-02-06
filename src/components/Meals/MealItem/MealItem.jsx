@@ -8,7 +8,7 @@ function MealItem({ Title, price, Description, id }) {
   const cartctx = useContext(CartContext);
 
   const onAddAmountItemHandler = (amount) => {
-    cartctx.addItem({
+    cartctx.addItemToCart({
       amount: amount,
       price: price,
       name: Title,

@@ -9,15 +9,17 @@ function MealItemform({ onAdditem }) {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    const enteredAmount = inputRef.current.value;
+    const enteredAmount = inputRef.current.value.trim();
     const enteredAmouuntToNumber = +enteredAmount;
     if (
-      enteredAmouuntToNumber.trim() === 0 ||
+      enteredAmouuntToNumber === 0 ||
       enteredAmouuntToNumber < 1 ||
       enteredAmouuntToNumber > 5
     ) {
       SetFormValidity(false);
       return;
+    } else {
+      SetFormValidity(true);
     }
     onAdditem(enteredAmouuntToNumber);
   };
@@ -29,8 +31,8 @@ function MealItemform({ onAdditem }) {
         input={{
           id: "amount",
           type: "number",
-          min: "1",
-          max: "5",
+          min: "-2",
+          max: "6",
           step: "1",
           defaultValue: "1",
         }}

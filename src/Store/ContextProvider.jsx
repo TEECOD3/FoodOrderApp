@@ -1,28 +1,29 @@
 import React, { useReducer } from "react";
 import CartContext from "./cart-context";
+import CartReducerFunction from "./reducer";
 
 const dispatchedstate = {
   item: [],
-  amountItem: 0,
+  totalAmountItem: 0,
 };
-
-const cartReducerFunction = (state, action) => {
-  return dispatchedstate;
-};
-
+//COMPONENT FUNCTION STARTS HERE
 const ContextProvider = (props) => {
   const [cartState, DispatchCartAction] = useReducer(
-    cartReducerFunction,
+    CartReducerFunction,
     dispatchedstate
   );
-  const addItemHandler = (item) => {};
-  const removeItemHandler = (id) => {};
+  const addItemToCartHandler = (item) => {
+    DispatchCartAction({ type: "ADD_MEAL_ITEM", value: item });
+  };
+  const removeItemFromCartHandler = (id) => {
+    DispatchCartAction({ type: "REMOVE_MEAL_ITEM", value: id });
+  };
 
   const cartContext = {
     item: cartState.item,
-    amountItem: cartState.amountItem,
-    addItem: addItemHandler,
-    removeItem: removeItemHandler,
+    totalAmountItem: cartState.totalAmountItem,
+    addItemToCart: addItemToCartHandler,
+    removeItemFromCart: removeItemFromCartHandler,
   };
 
   return (
