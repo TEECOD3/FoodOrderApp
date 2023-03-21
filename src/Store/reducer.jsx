@@ -1,4 +1,4 @@
-const dispatchedstate = {
+const initialstate = {
   item: [],
   totalAmountItem: 0,
 };
@@ -17,13 +17,12 @@ const CartReducerFunction = (state, action) => {
       };
       updatedItems = [...state.item];
       updatedItems[existingItemIndex] = updatedItem;
-      console.log(updatedItems);
     } else {
       updatedItems = state.item.concat(action.value);
     }
     const updatedAmountOfItem =
       state.totalAmountItem + action.value.amount * action.value.price;
-    console.log(updatedAmountOfItem);
+
     return {
       item: updatedItems,
       totalAmountItem: updatedAmountOfItem,
@@ -31,17 +30,27 @@ const CartReducerFunction = (state, action) => {
   }
 
   if (action.type === "REMOVE_MEAL_ITEM") {
-    const updatedItems = state.item.filter(
-      (item) => item.id !== action.value.id
+    const existingItemIndex = state.item.findIndex(
+      (item) => item.id === action.value
     );
-    const updatedAmountOfItem =
-      state.totalAmountItem + action.value.amount * action.value.price;
+    const existingItem = state.item[existingItemIndex];
+    const updatedTotalAmount = state.totalAmountItem - existingItem.price;
+    let updatedItems;
+    if (existingItem.amount === 1) {
+      updatedItems = state.item.filter((item) => item.id !== action.value);
+    } else {
+      const updatedItem = { ...existingItem, amount: existingItem.amount - 1 };
+      updatedItems = [...state.item];
+      updatedItems[existingItemIndex] = updatedItem;
+    }
+
     return {
       item: updatedItems,
-      totalAmountItem: updatedAmountOfItem,
+      totalAmountItem: updatedTotalAmount,
     };
   }
-  return dispatchedstate;
+
+  return initialstate;
 };
 
 export default CartReducerFunction;
