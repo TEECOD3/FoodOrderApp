@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 const useHttp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [Error, setError] = useState(null);
+  const [submitted, setsubmiited] = useState(false);
 
   const sendrequest = useCallback(async (requestconfig, usedata) => {
     setIsLoading(true);
@@ -19,11 +20,17 @@ const useHttp = () => {
       }
 
       const data = await response.json();
-      setIsLoading(false);
+
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+      setTimeout(() => {
+        setsubmiited(true);
+      }, 1020);
+
       usedata(data);
     } catch (error) {
-      // setIsLoading(false);
-      setError("something went wrong");
+      setError("something went wong");
     }
   }, []);
 
@@ -31,6 +38,7 @@ const useHttp = () => {
     Error,
     isLoading,
     sendrequest,
+    submitted,
   };
 };
 

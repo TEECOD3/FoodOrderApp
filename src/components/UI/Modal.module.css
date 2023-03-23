@@ -6,11 +6,12 @@
   height: 100vh;
   z-index: 20;
   background-color: rgba(0, 0, 0, 0.75);
+  scroll-behavior: smooth;
 }
 
 .modal {
   position: fixed;
-  top: 20vh;
+  top: 0;
   left: 5%;
   width: 90%;
   background-color: rgb(223, 205, 205);

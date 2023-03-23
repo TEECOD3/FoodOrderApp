@@ -49,6 +49,9 @@ const CartReducerFunction = (state, action) => {
       totalAmountItem: updatedTotalAmount,
     };
   }
+  if (action.type === "CLEAR") {
+    return initialstate;
+  }
 
   return initialstate;
 };
