@@ -20,11 +20,15 @@ const ContextProvider = (props) => {
     DispatchCartAction({ type: "REMOVE_MEAL_ITEM", value: id });
   };
 
+  const clearcart = () => {
+    DispatchCartAction({ type: "CLEAR" });
+  };
   const cartContext = {
     item: cartState.item,
     totalAmountItem: cartState.totalAmountItem,
     addItemToCart: addItemToCartHandler,
     removeItemFromCart: removeItemFromCartHandler,
+    clearcart: clearcart,
   };
 
   return (
